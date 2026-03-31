@@ -99,7 +99,7 @@ export default function CreateMarketPage() {
       {/* Sidebar */}
       <aside className="hidden lg:flex w-64 shrink-0 sticky top-[72px] h-[calc(100vh-72px)] bg-slate-50 border-r border-slate-100 flex-col py-8 px-6 gap-6 z-30">
         <div className="mb-4">
-          <h2 className="text-[#1061FF] font-extrabold tracking-tight">Vault Terminal</h2>
+          <h2 className="text-[#1061FF] font-extrabold tracking-tight">Zerk Terminal</h2>
           <p className="text-[10px] uppercase font-bold text-[#44474E] tracking-widest">Market Creation</p>
         </div>
         <nav className="flex flex-col gap-1">

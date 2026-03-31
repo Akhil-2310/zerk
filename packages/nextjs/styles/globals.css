@@ -7,34 +7,34 @@
   --shadow-center: 0 0 12px -2px rgb(0 0 0 / 0.05);
   --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
-  --color-vault-primary: #1061FF;
-  --color-vault-on-primary: #FFFFFF;
-  --color-vault-primary-container: #D6E2FF;
-  --color-vault-on-primary-container: #001A41;
-  --color-vault-secondary: #575E71;
-  --color-vault-on-secondary: #FFFFFF;
-  --color-vault-secondary-container: #DBE2F9;
-  --color-vault-on-secondary-container: #141B2C;
-  --color-vault-tertiary: #2E6B5D;
-  --color-vault-on-tertiary: #FFFFFF;
-  --color-vault-tertiary-container: #B3F0DF;
-  --color-vault-on-tertiary-container: #002019;
-  --color-vault-error: #BA1A1A;
-  --color-vault-on-error: #FFFFFF;
-  --color-vault-error-container: #FFDAD6;
-  --color-vault-background: #F8F9FF;
-  --color-vault-on-background: #191C20;
-  --color-vault-surface: #FDFBFF;
-  --color-vault-on-surface: #191C20;
-  --color-vault-surface-variant: #E0E2EC;
-  --color-vault-on-surface-variant: #44474E;
-  --color-vault-outline: #74777F;
-  --color-vault-outline-variant: #C4C6D0;
-  --color-vault-surface-container: #EDEDF4;
-  --color-vault-surface-container-high: #E7E8EE;
-  --color-vault-surface-container-low: #F3F3FA;
-  --color-vault-surface-bright: #FDFBFF;
-  --color-vault-success: #2D6D3B;
+  --color-zerk-primary: #1061FF;
+  --color-zerk-on-primary: #FFFFFF;
+  --color-zerk-primary-container: #D6E2FF;
+  --color-zerk-on-primary-container: #001A41;
+  --color-zerk-secondary: #575E71;
+  --color-zerk-on-secondary: #FFFFFF;
+  --color-zerk-secondary-container: #DBE2F9;
+  --color-zerk-on-secondary-container: #141B2C;
+  --color-zerk-tertiary: #2E6B5D;
+  --color-zerk-on-tertiary: #FFFFFF;
+  --color-zerk-tertiary-container: #B3F0DF;
+  --color-zerk-on-tertiary-container: #002019;
+  --color-zerk-error: #BA1A1A;
+  --color-zerk-on-error: #FFFFFF;
+  --color-zerk-error-container: #FFDAD6;
+  --color-zerk-background: #F8F9FF;
+  --color-zerk-on-background: #191C20;
+  --color-zerk-surface: #FDFBFF;
+  --color-zerk-on-surface: #191C20;
+  --color-zerk-surface-variant: #E0E2EC;
+  --color-zerk-on-surface-variant: #44474E;
+  --color-zerk-outline: #74777F;
+  --color-zerk-outline-variant: #C4C6D0;
+  --color-zerk-surface-container: #EDEDF4;
+  --color-zerk-surface-container-high: #E7E8EE;
+  --color-zerk-surface-container-low: #F3F3FA;
+  --color-zerk-surface-bright: #FDFBFF;
+  --color-zerk-success: #2D6D3B;
 
   --font-headline: 'Manrope', sans-serif;
   --font-body: 'Manrope', sans-serif;
@@ -120,8 +120,8 @@
     font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, Segoe UI,
       Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol";
-    background: var(--color-vault-background);
-    color: var(--color-vault-on-surface);
+    background: var(--color-zerk-background);
+    color: var(--color-zerk-on-surface);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -134,7 +134,7 @@
 
 :root,
 [data-theme] {
-  background: var(--color-vault-background);
+  background: var(--color-zerk-background);
 }
 
 .signature-gradient {

@@ -19,7 +19,7 @@ export const Header = () => {
       <div className="flex items-center justify-between px-8 py-4 max-w-[1440px] mx-auto w-full">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-2xl font-extrabold tracking-tight text-[#1061FF]">
-            Vault
+            Zerk
           </Link>
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map(link => (

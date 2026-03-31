@@ -6,7 +6,7 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/helper/getMetadata";
 
 export const metadata = getMetadata({
-  title: "Vault | Encrypted Prediction Markets",
+  title: "Zerk | Encrypted Prediction Markets",
   description: "Institutional-grade encrypted prediction markets powered by Zama FHE",
 });
 
