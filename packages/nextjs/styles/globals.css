@@ -1,12 +1,43 @@
 @import "tailwindcss";
-
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
   --shadow-center: 0 0 12px -2px rgb(0 0 0 / 0.05);
   --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  --color-vault-primary: #1061FF;
+  --color-vault-on-primary: #FFFFFF;
+  --color-vault-primary-container: #D6E2FF;
+  --color-vault-on-primary-container: #001A41;
+  --color-vault-secondary: #575E71;
+  --color-vault-on-secondary: #FFFFFF;
+  --color-vault-secondary-container: #DBE2F9;
+  --color-vault-on-secondary-container: #141B2C;
+  --color-vault-tertiary: #2E6B5D;
+  --color-vault-on-tertiary: #FFFFFF;
+  --color-vault-tertiary-container: #B3F0DF;
+  --color-vault-on-tertiary-container: #002019;
+  --color-vault-error: #BA1A1A;
+  --color-vault-on-error: #FFFFFF;
+  --color-vault-error-container: #FFDAD6;
+  --color-vault-background: #F8F9FF;
+  --color-vault-on-background: #191C20;
+  --color-vault-surface: #FDFBFF;
+  --color-vault-on-surface: #191C20;
+  --color-vault-surface-variant: #E0E2EC;
+  --color-vault-on-surface-variant: #44474E;
+  --color-vault-outline: #74777F;
+  --color-vault-outline-variant: #C4C6D0;
+  --color-vault-surface-container: #EDEDF4;
+  --color-vault-surface-container-high: #E7E8EE;
+  --color-vault-surface-container-low: #F3F3FA;
+  --color-vault-surface-bright: #FDFBFF;
+  --color-vault-success: #2D6D3B;
+
+  --font-headline: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
 }
 
 @plugin "daisyui" {
@@ -18,51 +49,50 @@
 @plugin "daisyui/theme" {
   name: "light";
 
-  --color-primary: #93bbfb;
-  --color-primary-content: #212638;
-  --color-secondary: #dae8ff;
-  --color-secondary-content: #212638;
-  --color-accent: #93bbfb;
-  --color-accent-content: #212638;
-  --color-neutral: #212638;
+  --color-primary: #1061FF;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #575E71;
+  --color-secondary-content: #FFFFFF;
+  --color-accent: #2E6B5D;
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #191C20;
   --color-neutral-content: #ffffff;
-  --color-base-100: #e8e8e8;
-  --color-base-200: #e8e8e8;
-  --color-base-300: #e8e8e8;
-  --color-base-content: #212638;
-  --color-info: #93bbfb;
-  --color-success: #34eeb6;
+  --color-base-100: #FDFBFF;
+  --color-base-200: #F8F9FF;
+  --color-base-300: #EDEDF4;
+  --color-base-content: #191C20;
+  --color-info: #1061FF;
+  --color-success: #2D6D3B;
   --color-warning: #ffcf72;
-  --color-error: #ff8863;
+  --color-error: #BA1A1A;
 
-  --radius-field: 9999rem;
-  --radius-box: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
   --tt-tailw: 6px;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
 
-  --color-primary: #212638;
-  --color-primary-content: #f9fbff;
-  --color-secondary: #323f61;
-  --color-secondary-content: #f9fbff;
-  --color-accent: #4969a6;
-  --color-accent-content: #f9fbff;
-  --color-neutral: #f9fbff;
-  --color-neutral-content: #385183;
-  --color-base-100: #b7791f;
-  --color-base-200: #975a16;
-  --color-base-300: #744210;
-  --color-base-content: #f9fbff;
-  --color-info: #385183;
-  --color-success: #34eeb6;
+  --color-primary: #A4C8FF;
+  --color-primary-content: #003061;
+  --color-secondary: #BFC6DC;
+  --color-secondary-content: #293041;
+  --color-accent: #98D4C4;
+  --color-accent-content: #00382D;
+  --color-neutral: #E2E2E9;
+  --color-neutral-content: #191C20;
+  --color-base-100: #111318;
+  --color-base-200: #191C20;
+  --color-base-300: #2E3036;
+  --color-base-content: #E2E2E9;
+  --color-info: #A4C8FF;
+  --color-success: #98D4C4;
   --color-warning: #ffcf72;
-  --color-error: #ff8863;
+  --color-error: #FFB4AB;
 
-  --radius-field: 9999rem;
-  --radius-box: 1rem;
-
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
   --tt-tailw: 6px;
   --tt-bg: var(--color-primary);
 }
@@ -71,9 +101,6 @@
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -85,28 +112,41 @@
   }
 
   p {
-    margin: 1rem 0;
+    margin: 0;
   }
 
   body {
     min-height: 100vh;
-    font-family: "Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, Segoe UI,
       Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol";
+    background: var(--color-vault-background);
+    color: var(--color-vault-on-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    margin-bottom: 0.5rem;
-    line-height: 1;
+  h1, h2, h3, h4 {
+    margin-bottom: 0;
+    line-height: 1.1;
   }
 }
 
 :root,
 [data-theme] {
-  background: var(--color-base-200);
+  background: var(--color-vault-background);
+}
+
+.signature-gradient {
+  background: linear-gradient(135deg, #0052e0 0%, #1061FF 100%);
+}
+
+.chart-gradient {
+  background: linear-gradient(180deg, rgba(16, 97, 255, 0.08) 0%, rgba(16, 97, 255, 0) 100%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .btn {

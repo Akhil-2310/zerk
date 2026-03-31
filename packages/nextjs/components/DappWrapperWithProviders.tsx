@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import { WagmiProvider } from "wagmi";
 import { Header } from "~~/components/Header";
+import { Footer } from "~~/components/Footer";
 import { BlockieAvatar } from "~~/components/helper";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
@@ -36,12 +37,13 @@ export const DappWrapperWithProviders = ({ children }: { children: React.ReactNo
           avatar={BlockieAvatar}
           theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
         >
-          <ProgressBar height="3px" color="#2299dd" />
-          <div className={`flex flex-col min-h-screen`}>
+          <ProgressBar height="3px" color="#1061FF" />
+          <div className="flex flex-col min-h-screen bg-[#F8F9FF]">
             <Header />
-            <main className="relative flex flex-col flex-1">
+            <main className="relative flex flex-col flex-1 pt-[72px]">
               <InMemoryStorageProvider>{children}</InMemoryStorageProvider>
             </main>
+            <Footer />
           </div>
           <Toaster />
         </RainbowKitProvider>
