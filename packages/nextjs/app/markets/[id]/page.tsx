@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { useAccount } from "wagmi";
 import { useFhevm } from "@fhevm-sdk";
-import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
-import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
 import { ethers } from "ethers";
+import { useAccount } from "wagmi";
+import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
+import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
 
 export default function MarketDetailPage() {
   const params = useParams();
@@ -426,7 +426,10 @@ export default function MarketDetailPage() {
                   </div>
                 ) : bet?.hasBet ? (
                   <div className="text-center py-8">
-                    <span className="material-symbols-outlined text-4xl text-[#1061FF] mb-2 block" style={{ fontVariationSettings: "'FILL' 1" }}>
+                    <span
+                      className="material-symbols-outlined text-4xl text-[#1061FF] mb-2 block"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
                       check_circle
                     </span>
                     <p className="font-bold text-[#191C20] mb-1">Bet Already Placed</p>
@@ -498,9 +501,7 @@ export default function MarketDetailPage() {
                     <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-[#44474E]">Your Side</span>
-                        <span className="font-bold">
-                          {selectedSide === null ? "—" : selectedSide ? "YES" : "NO"}
-                        </span>
+                        <span className="font-bold">{selectedSide === null ? "—" : selectedSide ? "YES" : "NO"}</span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-[#44474E]">Encryption</span>
@@ -509,7 +510,9 @@ export default function MarketDetailPage() {
                         </span>
                       </div>
                       <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
-                        <span className="font-bold text-xs text-slate-500">Both side & amount are encrypted on-chain</span>
+                        <span className="font-bold text-xs text-slate-500">
+                          Both side & amount are encrypted on-chain
+                        </span>
                       </div>
                     </div>
 

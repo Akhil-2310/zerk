@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useAccount } from "wagmi";
 import { useFhevm } from "@fhevm-sdk";
-import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
-import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
 import { ethers } from "ethers";
+import { useAccount } from "wagmi";
+import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
+import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
 
 export default function DashboardPage() {
   const { isConnected, address, chain } = useAccount();
@@ -63,7 +63,6 @@ export default function DashboardPage() {
 
   const nowSec = Math.floor(Date.now() / 1000);
   const marketsWithBets = markets.filter(m => betStatuses[m.id]?.hasBet);
-  const marketsWithoutBets = markets.filter(m => !betStatuses[m.id]?.hasBet);
 
   return (
     <div className="flex min-h-[calc(100vh-72px)]">
@@ -254,9 +253,7 @@ export default function DashboardPage() {
                       <tr key={m.id} className="hover:bg-slate-50/50 transition-colors">
                         <td className="px-6 py-5">
                           <div className="flex items-center gap-3">
-                            <div
-                              className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg ${m.iconBg}`}
-                            >
+                            <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg ${m.iconBg}`}>
                               {m.icon}
                             </div>
                             <div>
@@ -274,9 +271,7 @@ export default function DashboardPage() {
                         </td>
                         <td className="px-6 py-5">
                           {revSide !== undefined ? (
-                            <span
-                              className={`font-extrabold text-sm ${revSide ? "text-[#1061FF]" : "text-[#BA1A1A]"}`}
-                            >
+                            <span className={`font-extrabold text-sm ${revSide ? "text-[#1061FF]" : "text-[#BA1A1A]"}`}>
                               {revSide ? "YES" : "NO"}
                             </span>
                           ) : (
@@ -390,7 +385,9 @@ export default function DashboardPage() {
               <tbody className="divide-y divide-slate-50">
                 {markets.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-slate-400">No markets yet.</td>
+                    <td colSpan={5} className="px-6 py-12 text-center text-slate-400">
+                      No markets yet.
+                    </td>
                   </tr>
                 ) : (
                   markets.map(m => {
@@ -399,9 +396,7 @@ export default function DashboardPage() {
                       <tr key={m.id} className="hover:bg-slate-50/50 transition-colors">
                         <td className="px-6 py-5">
                           <div className="flex items-center gap-3">
-                            <div
-                              className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg ${m.iconBg}`}
-                            >
+                            <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg ${m.iconBg}`}>
                               {m.icon}
                             </div>
                             <div>

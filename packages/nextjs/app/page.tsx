@@ -48,9 +48,7 @@ export default function HomePage() {
                 </div>
                 <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-sm">
-                      ₿
-                    </div>
+                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-sm">₿</div>
                     <span className="font-bold text-[#191C20]">Will BTC hit $150k?</span>
                   </div>
                   <div className="flex gap-2">
@@ -64,9 +62,7 @@ export default function HomePage() {
                 </div>
                 <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm">
-                      Ξ
-                    </div>
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm">Ξ</div>
                     <span className="font-bold text-[#191C20]">Will ETH hit $10k?</span>
                   </div>
                   <div className="flex gap-2">

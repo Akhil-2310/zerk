@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useAccount } from "wagmi";
 import { useFhevm } from "@fhevm-sdk";
-import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
+import { useAccount } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
+import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
 
 export default function CreateMarketPage() {
   const { isConnected, chain } = useAccount();

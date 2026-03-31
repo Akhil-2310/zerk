@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePredictionMarket } from "~~/hooks/prediction-market/usePredictionMarket";
 
@@ -56,11 +56,7 @@ export default function MarketsPage() {
               <button
                 key={b.key}
                 onClick={() => setAssetFilter(b.key)}
-                className={`px-5 py-2 rounded-md text-sm font-bold transition-all cursor-pointer ${
-                  assetFilter === b.key
-                    ? "bg-white text-[#191C20] shadow-sm"
-                    : "text-slate-500 hover:text-slate-700"
-                }`}
+                className={`px-5 py-2 rounded-md text-sm font-bold transition-all cursor-pointer ${assetFilter === b.key ? "bg-white text-[#191C20] shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
               >
                 {b.label}
               </button>
@@ -73,11 +69,7 @@ export default function MarketsPage() {
               <button
                 key={b.key}
                 onClick={() => setStatusFilter(b.key)}
-                className={`px-5 py-2 rounded-md text-sm font-bold transition-all cursor-pointer ${
-                  statusFilter === b.key
-                    ? "bg-white text-[#191C20] shadow-sm"
-                    : "text-slate-500 hover:text-slate-700"
-                }`}
+                className={`px-5 py-2 rounded-md text-sm font-bold transition-all cursor-pointer ${statusFilter === b.key ? "bg-white text-[#191C20] shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
               >
                 {b.label}
               </button>
@@ -120,15 +112,9 @@ export default function MarketsPage() {
                     </div>
                     <div>
                       <span
-                        className={`px-2.5 py-1 text-[10px] font-bold rounded flex items-center gap-1.5 w-fit ${
-                          isClosed
-                            ? "bg-slate-100 text-slate-500"
-                            : "bg-[#B3F0DF] text-[#2E6B5D]"
-                        }`}
+                        className={`px-2.5 py-1 text-[10px] font-bold rounded flex items-center gap-1.5 w-fit ${isClosed ? "bg-slate-100 text-slate-500" : "bg-[#B3F0DF] text-[#2E6B5D]"}`}
                       >
-                        {!isClosed && (
-                          <span className="w-1.5 h-1.5 bg-[#2E6B5D] rounded-full animate-pulse"></span>
-                        )}
+                        {!isClosed && <span className="w-1.5 h-1.5 bg-[#2E6B5D] rounded-full animate-pulse"></span>}
                         {m.totalsReady ? "Resolved" : m.resolved ? "Resolving" : isClosed ? "Closed" : "Live Market"}
                       </span>
                     </div>

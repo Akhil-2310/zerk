@@ -12,13 +12,11 @@ const CHAINLINK_ETH_USD = "0x694AA1769357215DE4FAC081bf1f309aDC325306";
 
 const SEPOLIA_RPC = "https://ethereum-sepolia-rpc.publicnode.com";
 
-const MARKET_DURATION_SECONDS = 30 * 60; // 15 minutes
+const MARKET_DURATION_SECONDS = 30 * 60; // 30 minutes
 const SEED_WEI = ethers.parseEther("0.001"); // 0.001 ETH per side
 const STRIKE_OFFSET_BPS = 500; // 5% = 500 basis points
 
-const AGGREGATOR_ABI = [
-  "function latestRoundData() external view returns (uint80, int256, uint256, uint256, uint80)",
-];
+const AGGREGATOR_ABI = ["function latestRoundData() external view returns (uint80, int256, uint256, uint256, uint80)"];
 
 const PREDICTION_MARKET_ABI = [
   "function marketCount() view returns (uint256)",
@@ -155,13 +153,29 @@ export async function POST(req: NextRequest) {
     const marketsToCreate: { type: number; strike: bigint; label: string }[] = [];
 
     if (!hasActiveBTC.up)
-      marketsToCreate.push({ type: 0, strike: btcStrikeUp, label: `BTC +5% ($${(Number(btcStrikeUp) / 1e8).toLocaleString()})` });
+      marketsToCreate.push({
+        type: 0,
+        strike: btcStrikeUp,
+        label: `BTC +5% ($${(Number(btcStrikeUp) / 1e8).toLocaleString()})`,
+      });
     if (!hasActiveBTC.down)
-      marketsToCreate.push({ type: 0, strike: btcStrikeDown, label: `BTC -5% ($${(Number(btcStrikeDown) / 1e8).toLocaleString()})` });
+      marketsToCreate.push({
+        type: 0,
+        strike: btcStrikeDown,
+        label: `BTC -5% ($${(Number(btcStrikeDown) / 1e8).toLocaleString()})`,
+      });
     if (!hasActiveETH.up)
-      marketsToCreate.push({ type: 1, strike: ethStrikeUp, label: `ETH +5% ($${(Number(ethStrikeUp) / 1e8).toLocaleString()})` });
+      marketsToCreate.push({
+        type: 1,
+        strike: ethStrikeUp,
+        label: `ETH +5% ($${(Number(ethStrikeUp) / 1e8).toLocaleString()})`,
+      });
     if (!hasActiveETH.down)
-      marketsToCreate.push({ type: 1, strike: ethStrikeDown, label: `ETH -5% ($${(Number(ethStrikeDown) / 1e8).toLocaleString()})` });
+      marketsToCreate.push({
+        type: 1,
+        strike: ethStrikeDown,
+        label: `ETH -5% ($${(Number(ethStrikeDown) / 1e8).toLocaleString()})`,
+      });
 
     for (const mkt of marketsToCreate) {
       try {
@@ -182,10 +196,7 @@ export async function POST(req: NextRequest) {
       ...log,
     });
   } catch (e) {
-    return NextResponse.json(
-      { ok: false, error: e instanceof Error ? e.message : String(e) },
-      { status: 500 },
-    );
+    return NextResponse.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, { status: 500 });
   }
 }
 
