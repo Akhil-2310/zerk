@@ -1,12 +1,6 @@
 # Zerk
 
-**Zerk** is an encrypted prediction market on Ethereum Sepolia. Users bet on whether BTC or ETH will be above a strike price at resolution time. **Yes/No choice and bet size stay encrypted on-chain** using [Zama’s FHEVM](https://docs.zama.ai/protocol); aggregated pool totals are revealed only after resolution for settlement.
-
----
-
-## What this is
-
-A full-stack dApp: Solidity contracts (`PredictionMarket`), a Next.js frontend (RainbowKit, Wagmi, Relayer SDK), and optional automation (Upstash QStash) to open and resolve markets on a schedule. Markets resolve against **Chainlink price feeds** on Sepolia.
+**Zerk** is an encrypted prediction market on Ethereum Sepolia powered by Zama. Users bet on whether BTC or ETH will be above a strike price at resolution time. **Yes/No choice and bet size stay encrypted on-chain** using [Zama’s FHEVM](https://docs.zama.ai/protocol); aggregated pool totals are revealed only after resolution for settlement.
 
 ---
 
@@ -32,7 +26,6 @@ Classic prediction markets leak **who bet what** on-chain. That shapes behavior 
 - **Fairer information aggregation** — Less pressure to copy visible whales or hide intent off-chain only.
 - **Composable confidentiality** — Same patterns extend to other markets, auctions, or votes where inputs should stay private until a defined reveal phase.
 
-This repo is a **testnet demo**; audit, economics, and legal constraints would apply before any mainnet use.
 
 ---
 
