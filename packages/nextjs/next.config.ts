@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   devIndicators: false,
+  // Native / WASM TFHE used only by cron route when CRON_COLLATERAL includes cUSDC
+  serverExternalPackages: ["@zama-fhe/relayer-sdk", "node-tfhe", "node-tkms"],
   // Turbopack: resolve Node.js built-ins to empty modules for client bundle
   // Next.js 15.x uses experimental.turbo; Next 16+ uses turbopack
   experimental: {
