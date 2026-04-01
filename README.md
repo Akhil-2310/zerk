@@ -4,6 +4,12 @@
 
 ---
 
+## [Live Demo](https://zerk-six.vercel.app/)
+
+## [Video Demo](https://www.youtube.com/watch?v=R5JB7pCdTYo)
+
+## [Presentation](https://drive.google.com/file/d/1FG6lQIMwVvLOUJim9KJ5GibWARR7_dby/view)
+
 ## What we are building
 
 | Layer | Description |
