@@ -33,6 +33,8 @@ const PREDICTION_MARKET_ABI = [
   "function createMarketETH(uint8 marketType, uint256 strikePrice, uint256 resolveTime, uint256 seedYes, uint256 seedNo) payable",
   "function createMarketToken(uint8 marketType, address token, uint256 strikePrice, uint256 resolveTime, bytes32 seedYes, bytes32 seedNo, bytes proof)",
   "function resolveMarket(uint256 id)",
+  "function getTotalHandles(uint256 id) view returns (bytes32 yesHandle, bytes32 noHandle)",
+  "function submitTotals(uint256 id, bytes abiEncodedCleartexts, bytes decryptionProof)",
 ];
 
 /**
@@ -87,6 +89,7 @@ function roundPrice(price: number, direction: "up" | "down", offsetBps: number):
 
 interface ActionLog {
   resolved: string[];
+  decrypted: string[];
   created: string[];
   errors: string[];
 }
@@ -183,7 +186,7 @@ export async function POST(req: NextRequest) {
   }
   const privateKey = parsed.key;
 
-  const log: ActionLog = { resolved: [], created: [], errors: [] };
+  const log: ActionLog = { resolved: [], decrypted: [], created: [], errors: [] };
 
   try {
     const provider = new ethers.JsonRpcProvider(SEPOLIA_RPC);
@@ -214,6 +217,42 @@ export async function POST(req: NextRequest) {
         }
       } catch (e) {
         log.errors.push(`Resolve market #${i}: ${e instanceof Error ? e.message : String(e)}`);
+      }
+    }
+
+    // --- Phase 1.5: Decrypt totals for resolved markets that need it ---
+    const marketsNeedingDecrypt: number[] = [];
+    for (let i = 0; i < marketCount; i++) {
+      try {
+        const m = await contract.markets(i);
+        if (m.resolved && !m.totalsReady) {
+          marketsNeedingDecrypt.push(i);
+        }
+      } catch {
+        // ignore
+      }
+    }
+
+    if (marketsNeedingDecrypt.length > 0) {
+      let fhevmForDecrypt: Awaited<ReturnType<typeof createFhevmRelayerInstance>> | undefined;
+      try {
+        fhevmForDecrypt = await createFhevmRelayerInstance();
+      } catch (e) {
+        log.errors.push(`FHEVM init for decrypt: ${e instanceof Error ? e.message : String(e)}`);
+      }
+
+      if (fhevmForDecrypt) {
+        for (const mid of marketsNeedingDecrypt) {
+          try {
+            const { yesHandle, noHandle } = await contract.getTotalHandles(mid);
+            const result = await fhevmForDecrypt.publicDecrypt([yesHandle, noHandle]);
+            const tx = await contract.submitTotals(mid, result.abiEncodedClearValues, result.decryptionProof);
+            await tx.wait();
+            log.decrypted.push(`Market #${mid} totals decrypted (tx: ${tx.hash})`);
+          } catch (e) {
+            log.errors.push(`Decrypt market #${mid}: ${e instanceof Error ? e.message : String(e)}`);
+          }
+        }
       }
     }
 
