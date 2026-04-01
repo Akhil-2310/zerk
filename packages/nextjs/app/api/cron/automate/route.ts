@@ -112,12 +112,6 @@ function parseOwnerPrivateKey(raw: string | undefined): ParsedKey {
 
 type CollateralMode = "eth" | "cusdc" | "both";
 
-function parseCollateralMode(): CollateralMode {
-  const v = (process.env.CRON_COLLATERAL || "eth").toLowerCase().trim();
-  if (v === "cusdc" || v === "token" || v === "confidential") return "cusdc";
-  if (v === "both" || v === "all") return "both";
-  return "eth";
-}
 
 function parseCusdcSeedMicro(): bigint {
   const raw = (process.env.CRON_CUSDC_SEED_MICRO || "10000").replace(/\s+/g, "");
