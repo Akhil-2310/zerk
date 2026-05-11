@@ -50,8 +50,8 @@ const deployerPk =
   normalizeSecp256k1PrivateKey(process.env.DEPLOYER_PRIVATE_KEY ?? "") ||
   normalizeSecp256k1PrivateKey(vars.get("PRIVATE_KEY", ""));
 
-/** Local + fork networks need a valid key; Sepolia can omit accounts for verify/read-only. */
-const localSignerKey = deployerPk || HARDHAT_DEV_PRIVATE_KEY;
+/** Anvil fork needs a valid key; Sepolia can omit accounts for verify/read-only. */
+const anvilSignerKey = deployerPk || HARDHAT_DEV_PRIVATE_KEY;
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
@@ -69,16 +69,11 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      accounts: [
-        {
-          privateKey: localSignerKey,
-          balance: "10000000000000000000000",
-        },
-      ],
+      // Use Hardhat's default 20 accounts — fhevm relayer + tests need multiple signers.
       chainId: 31337,
     },
     anvil: {
-      accounts: [localSignerKey],
+      accounts: [anvilSignerKey],
       chainId: 31337,
       url: "http://localhost:8545",
     },
@@ -105,6 +100,8 @@ const config: HardhatUserConfig = {
         runs: 800,
       },
       evmVersion: "cancun",
+      // Required for FHE-heavy contracts (esp. ConfidentialBattleMarket) — avoids "Stack too deep".
+      viaIR: true,
     },
   },
   typechain: {

@@ -42,8 +42,16 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   });
 
   console.log(`ConfidentialPredictionMarket deployed at: ${deployedContract.address}`);
+
+  console.log(`Deploying ConfidentialBattleMarket on chain ${chainId}...`);
+  const battleContract = await deploy("ConfidentialBattleMarket", {
+    from: deployer,
+    args: [feeds.btc, feeds.eth],
+    log: true,
+  });
+  console.log(`ConfidentialBattleMarket deployed at: ${battleContract.address}`);
 };
 
 export default func;
 func.id = "deploy_prediction_market";
-func.tags = ["ConfidentialPredictionMarket"];
+func.tags = ["ConfidentialPredictionMarket", "ConfidentialBattleMarket"];

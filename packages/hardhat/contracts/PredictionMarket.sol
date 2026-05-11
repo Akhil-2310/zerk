@@ -135,7 +135,7 @@ contract ConfidentialPredictionMarket is ZamaEthereumConfig {
         uint256 resolveTime,
         uint256 seedYes,
         uint256 seedNo
-    ) external payable onlyOwner {
+    ) external payable {
         require(resolveTime > block.timestamp, "RESOLVE_IN_PAST");
         require(msg.value == seedYes + seedNo, "INVALID_ETH");
         require(seedYes > 0 && seedNo > 0, "ZERO_SEED");
@@ -169,7 +169,7 @@ contract ConfidentialPredictionMarket is ZamaEthereumConfig {
         externalEuint64 seedYes,
         externalEuint64 seedNo,
         bytes calldata proof
-    ) external onlyOwner {
+    ) external {
         require(resolveTime > block.timestamp, "RESOLVE_IN_PAST");
         require(token != address(0), "ZERO_TOKEN");
 
@@ -286,10 +286,11 @@ contract ConfidentialPredictionMarket is ZamaEthereumConfig {
     // =========================
     // RESOLVE MARKET
     // =========================
-    // Owner resolves after resolveTime. Also marks totalYes/totalNo as
+    // Anyone can resolve after resolveTime — Chainlink price is deterministic so
+    // the outcome is independent of caller. Also marks totalYes/totalNo as
     // publicly decryptable so anyone can request decryption from the relayer.
 
-    function resolveMarket(uint256 id) external onlyOwner {
+    function resolveMarket(uint256 id) external {
         require(id < marketCount, "INVALID_MARKET");
 
         Market storage m = markets[id];
