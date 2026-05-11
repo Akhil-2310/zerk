@@ -10,6 +10,7 @@ export const Header = () => {
 
   const navLinks = [
     { href: "/markets", label: "Markets" },
+    { href: "/battles", label: "Arena" },
     { href: "/dashboard", label: "Dashboard" },
     { href: "/create", label: "Create" },
   ];
@@ -22,19 +23,23 @@ export const Header = () => {
             Zerk
           </Link>
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-semibold transition-colors duration-200 ${
-                  pathname === link.href
-                    ? "text-[#1061FF] border-b-2 border-[#1061FF]"
-                    : "text-slate-600 hover:text-[#1061FF]"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map(link => {
+              const isActive =
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href + "/")) ||
+                (link.href === "/battles" && pathname.startsWith("/groups"));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-semibold transition-colors duration-200 ${
+                    isActive ? "text-[#1061FF] border-b-2 border-[#1061FF]" : "text-slate-600 hover:text-[#1061FF]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
         <div className="flex items-center gap-4">

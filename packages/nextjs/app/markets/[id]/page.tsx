@@ -32,7 +32,6 @@ export default function MarketDetailPage() {
     markets,
     betStatuses,
     revealedData,
-    isOwner,
     isOperatorSet,
     placeBetETH,
     placeBetToken,
@@ -288,13 +287,19 @@ export default function MarketDetailPage() {
           </div>
         </div>
 
-        {/* Owner Admin Panel */}
-        {isOwner && market && (
+        {/* Resolve & Decrypt Panel — permissionless */}
+        {market && (!market.resolved || !market.totalsReady) && (
           <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-6 text-white space-y-4">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">admin_panel_settings</span>
-              <h3 className="font-extrabold text-lg">Owner Controls</h3>
+              <span className="material-symbols-outlined">gavel</span>
+              <h3 className="font-extrabold text-lg">Resolve & Decrypt</h3>
+              <span className="ml-2 px-2 py-0.5 bg-white/10 text-white/80 text-[10px] font-bold rounded uppercase tracking-wider">
+                Permissionless
+              </span>
             </div>
+            <p className="text-xs text-white/60">
+              Anyone can finalize this market once the resolve time has passed.
+            </p>
 
             {message && <div className="bg-white/10 rounded-lg px-4 py-2 text-sm font-medium">{message}</div>}
 
@@ -422,7 +427,7 @@ export default function MarketDetailPage() {
                 ) : market?.resolved ? (
                   <div className="text-center py-8">
                     <span className="material-symbols-outlined text-4xl text-amber-300 mb-4 block">hourglass_top</span>
-                    <p className="text-slate-500">Market resolved. Awaiting total decryption by owner.</p>
+                    <p className="text-slate-500">Market resolved. Awaiting total decryption.</p>
                   </div>
                 ) : bet?.hasBet ? (
                   <div className="text-center py-8">

@@ -25,19 +25,11 @@ export default function CreateMarketPage() {
     enabled: true,
   });
 
-  const {
-    createMarketETH,
-    createMarketToken,
-    approveToken,
-    mintAndWrapCUSDC,
-    isOwner,
-    isOperatorSet,
-    isProcessing,
-    message,
-  } = usePredictionMarket({
-    instance: fhevmInstance,
-    initialMockChains,
-  });
+  const { createMarketETH, createMarketToken, approveToken, mintAndWrapCUSDC, isOperatorSet, isProcessing, message } =
+    usePredictionMarket({
+      instance: fhevmInstance,
+      initialMockChains,
+    });
 
   const [marketType, setMarketType] = useState<"BTC_PRICE" | "ETH_PRICE">("BTC_PRICE");
   const [assetType, setAssetType] = useState<"ETH" | "CONFIDENTIAL">("ETH");
@@ -133,18 +125,16 @@ export default function CreateMarketPage() {
           </p>
         </header>
 
-        {!isOwner && (
-          <div className="mb-8 bg-amber-50 border border-amber-200 rounded-xl p-6 flex gap-4">
-            <span className="material-symbols-outlined text-amber-600">warning</span>
-            <div>
-              <h4 className="text-sm font-bold text-amber-800 mb-1">Owner Only</h4>
-              <p className="text-xs text-amber-700 leading-relaxed">
-                Only the contract owner can create new markets. If you believe this is an error, please check that you
-                are connected with the correct wallet address.
-              </p>
-            </div>
+        <div className="mb-8 bg-[#1061FF]/5 border border-[#1061FF]/20 rounded-xl p-6 flex gap-4">
+          <span className="material-symbols-outlined text-[#1061FF]">public</span>
+          <div>
+            <h4 className="text-sm font-bold text-[#1061FF] mb-1">Anyone Can Create Markets</h4>
+            <p className="text-xs text-[#44474E] leading-relaxed">
+              Markets are now permissionless — anyone can deploy a new BTC or ETH price market by funding both YES and
+              NO sides. Resolution happens automatically via Chainlink after the resolve time.
+            </p>
           </div>
-        )}
+        </div>
 
         {message && (
           <div className="mb-6 bg-[#1061FF]/5 rounded-lg px-4 py-3 text-sm text-[#1061FF] font-medium">{message}</div>
@@ -293,7 +283,7 @@ export default function CreateMarketPage() {
                     !strikePrice ||
                     !resolveTime ||
                     isProcessing ||
-                    !isOwner ||
+                    !isConnected ||
                     (assetType === "CONFIDENTIAL" && !isOperatorSet)
                   }
                   className="px-10 py-3 bg-[#1061FF] text-white font-extrabold rounded-lg hover:bg-blue-700 shadow-md flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
@@ -379,8 +369,8 @@ export default function CreateMarketPage() {
               <div>
                 <h4 className="text-sm font-bold mb-1">Creation Guidelines</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Only the contract owner can create markets. Strike prices use Chainlink oracle format (8 decimal
-                  places). Seed liquidity provides the initial pool for both sides of the market.
+                  Anyone with a connected wallet can create a market. Strike prices use Chainlink oracle format (8
+                  decimal places). Seed liquidity provides the initial pool for both sides of the market.
                 </p>
               </div>
             </div>

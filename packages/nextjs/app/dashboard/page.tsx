@@ -145,13 +145,20 @@ export default function DashboardPage() {
           <div className="mb-6 bg-[#1061FF]/5 rounded-lg px-4 py-3 text-sm text-[#1061FF] font-medium">{message}</div>
         )}
 
-        {/* Owner Admin Section */}
-        {isOwner && markets.some(m => !m.totalsReady) && (
+        {/* Public Resolve / Decrypt Panel — permissionless */}
+        {markets.some(m => !m.totalsReady) && (
           <div className="mb-8 bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-6 text-white">
             <div className="flex items-center gap-2 mb-4">
-              <span className="material-symbols-outlined">admin_panel_settings</span>
-              <h3 className="font-extrabold text-lg">Owner: Market Resolution</h3>
+              <span className="material-symbols-outlined">gavel</span>
+              <h3 className="font-extrabold text-lg">Resolve & Decrypt Markets</h3>
+              <span className="ml-2 px-2 py-0.5 bg-white/10 text-white/80 text-[10px] font-bold rounded uppercase tracking-wider">
+                Permissionless
+              </span>
             </div>
+            <p className="text-xs text-white/60 mb-4">
+              Anyone can finalize a market past its resolve time — Chainlink prices are deterministic, so the outcome
+              is identical regardless of who calls.
+            </p>
             <div className="space-y-3">
               {markets
                 .filter(m => !m.totalsReady)
