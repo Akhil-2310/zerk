@@ -196,36 +196,38 @@ export function usePredictionMarket(parameters?: {
         const readContract = getContract("read");
         if (!readContract) return;
 
-        const fetched: MarketInfo[] = [];
-        for (let i = 0; i < marketCount; i++) {
-          try {
-            const m = await readContract.markets(i);
-            const marketTypeStr = Number(m.marketType) === 0 ? "BTC_PRICE" : "ETH_PRICE";
-            const assetTypeStr = Number(m.assetType) === 0 ? "ETH" : "CONFIDENTIAL";
-            const resolveTimestamp = Number(m.resolveTime);
+        const results = await Promise.allSettled(
+          Array.from({ length: marketCount }, (_, i) => readContract.markets(i)),
+        );
 
-            fetched.push({
-              id: i,
-              title:
-                marketTypeStr === "BTC_PRICE"
-                  ? `Will Bitcoin hit $${(Number(m.strikePrice) / 1e8).toLocaleString()}?`
-                  : `Will Ethereum hit $${(Number(m.strikePrice) / 1e8).toLocaleString()}?`,
-              marketType: marketTypeStr,
-              assetType: assetTypeStr,
-              strikePrice: (Number(m.strikePrice) / 1e8).toString(),
-              resolveTime: new Date(resolveTimestamp * 1000).toLocaleDateString("en-US", { dateStyle: "medium" }),
-              resolveTimestamp,
-              resolved: m.resolved,
-              outcome: m.outcome,
-              totalsReady: m.totalsReady,
-              tag: marketTypeStr === "BTC_PRICE" ? "Bitcoin" : "Ethereum",
-              icon: marketTypeStr === "BTC_PRICE" ? "₿" : "Ξ",
-              iconBg: marketTypeStr === "BTC_PRICE" ? "bg-orange-100" : "bg-blue-100",
-              tokenAddress: m.token || "",
-            });
-          } catch (e) {
-            console.error(`Failed to fetch market ${i}:`, e);
-          }
+        const fetched: MarketInfo[] = [];
+        for (let i = 0; i < results.length; i++) {
+          const r = results[i];
+          if (r.status !== "fulfilled") continue;
+          const m = r.value;
+          const marketTypeStr = Number(m.marketType) === 0 ? "BTC_PRICE" : "ETH_PRICE";
+          const assetTypeStr = Number(m.assetType) === 0 ? "ETH" : "CONFIDENTIAL";
+          const resolveTimestamp = Number(m.resolveTime);
+
+          fetched.push({
+            id: i,
+            title:
+              marketTypeStr === "BTC_PRICE"
+                ? `Will Bitcoin hit $${(Number(m.strikePrice) / 1e8).toLocaleString()}?`
+                : `Will Ethereum hit $${(Number(m.strikePrice) / 1e8).toLocaleString()}?`,
+            marketType: marketTypeStr,
+            assetType: assetTypeStr,
+            strikePrice: (Number(m.strikePrice) / 1e8).toString(),
+            resolveTime: new Date(resolveTimestamp * 1000).toLocaleDateString("en-US", { dateStyle: "medium" }),
+            resolveTimestamp,
+            resolved: m.resolved,
+            outcome: m.outcome,
+            totalsReady: m.totalsReady,
+            tag: marketTypeStr === "BTC_PRICE" ? "Bitcoin" : "Ethereum",
+            icon: marketTypeStr === "BTC_PRICE" ? "₿" : "Ξ",
+            iconBg: marketTypeStr === "BTC_PRICE" ? "bg-orange-100" : "bg-blue-100",
+            tokenAddress: m.token || "",
+          });
         }
         setMarkets(fetched);
       } catch (e) {
@@ -244,21 +246,22 @@ export function usePredictionMarket(parameters?: {
     const readContract = getContract("read");
     if (!readContract) return;
 
+    const results = await Promise.allSettled(
+      Array.from({ length: marketCount }, (_, i) => readContract.bets(i, accounts[0])),
+    );
     const statuses: Record<number, BetStatus> = {};
-    for (let i = 0; i < marketCount; i++) {
-      try {
-        const b = await readContract.bets(i, accounts[0]);
-        statuses[i] = {
-          hasBet: b.hasBet,
-          claimed: b.claimed,
-          prepared: b.prepared,
-          ethAmount: b.ethAmount,
-          amountHandle: b.amount,
-          sideHandle: b.side,
-        };
-      } catch {
-        // ignore individual failures
-      }
+    for (let i = 0; i < results.length; i++) {
+      const r = results[i];
+      if (r.status !== "fulfilled") continue;
+      const b = r.value;
+      statuses[i] = {
+        hasBet: b.hasBet,
+        claimed: b.claimed,
+        prepared: b.prepared,
+        ethAmount: b.ethAmount,
+        amountHandle: b.amount,
+        sideHandle: b.side,
+      };
     }
     setBetStatuses(statuses);
   }, [hasContract, accounts, marketCount, getContract]);
